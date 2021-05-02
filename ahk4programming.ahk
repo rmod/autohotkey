@@ -17,12 +17,14 @@ SendMode Input
 SetCapsLockState, Off
 SetCapsLockState, Alwaysoff
 ~Capslock::SetCapsLockState, off
-*CapsLock::Return           ; (Ctrl|Alt|Shift) + CapsLock;
+*CapsLock::Return           ; block (Ctrl|Alt|Shift) + CapsLock;
 CapsLock & *::Return        
 ; #############################################################################
 
 ; #############################################################################
 ; Caps Lock shortcuts.
+
+; CapsLock & Sc029:: <layout switch> ; <todo> implement
 
 ; -------------------------------------
 ; Removing chars 
@@ -60,12 +62,20 @@ CapsLock & e::+End          ; select all words to the bigging of line;
 ; removing chars
 CapsLock & g::^+k           ; delete line;
 ; coping text
-CapsLock & t::!+Down        ; copy line of cursor down; <issue: use more Ctrl+C/X instead>
-; adding charsa
-CapsLock & z::!+Down        ; copy line of cursor down;
-CapsLock & c::!+Down        ; copy line of cursor down;
-CapsLock & x::!+Down        ; copy line of cursor down;
-; <todo> i end here.
+
+; adding chars
+CapsLock & r::=             ; +shift makes +
+CapsLock & t::_             
+
+; three key combination
+#if GetKeyState("CapsLock", "P")
+Alt & r::Send `=>`
+Shift & t::Send {-}
+return
+
+CapsLock & z::( 
+CapsLock & x::{
+CapsLock & c::[
 
 ; #Win ^Ctrl !Alt +Shift
 ; #############################################################################
