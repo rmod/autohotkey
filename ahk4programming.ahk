@@ -27,8 +27,12 @@ CapsLock & *::Return
 ; CapsLock & Sc029:: <layout switch> ; <todo> implement
 
 ; -------------------------------------
-; Removing chars 
-;
+; Windows manipulation
+CapsLock & Tab::AltTabMenu  ; open static alt+tab preview <todo>generate errors;
+; virtual desktop
+CapsLock & 1::#t            ; circle between toolbar;
+CapsLock & 2::^#Left        ; go to next desktop;
+CapsLock & 3::^#Right       ; go to previous desktop;
 
 ; -------------------------------------
 ; Keyboard - Arrows
@@ -51,8 +55,8 @@ CapsLock & o::^Right        ; cursor ar beginnig of word;
 ; marking text
 CapsLock & a::^+Left        ; move cursor at end of word and select it;
 CapsLock & d::^+Right       ; move cursor at begginig of word and select it;
-CapsLock & w::^+Up          ; move cursor over and select line;
-CapsLock & s::^+Down        ; move cursor down and select line;
+CapsLock & w::+Up          ; move cursor over and select line;
+CapsLock & s::+Down        ; move cursor down and select line;
 CapsLock & q::+Home         ; select all words to the end of line; 
 CapsLock & e::+End          ; select all words to the bigging of line;
 
@@ -65,17 +69,16 @@ CapsLock & g::^+k           ; delete line;
 
 ; adding chars
 CapsLock & r::=             ; +shift makes +
-CapsLock & t::_             
-
-; three key combination
-#if GetKeyState("CapsLock", "P")
-Alt & r::Send `=>`
-Shift & t::Send {-}
-return
-
+CapsLock & t::_    
 CapsLock & z::( 
 CapsLock & x::{
 CapsLock & c::[
+
+; three key combination
+#if GetKeyState("CapsLock", "P")
+Alt &   r::Send `=>`
+Shift & t::Send {-}
+return
 
 ; #Win ^Ctrl !Alt +Shift
 ; #############################################################################
