@@ -31,8 +31,12 @@ CapsLock & *::Return
 CapsLock & Tab::AltTabMenu  ; open static alt+tab preview <todo>generate errors;
 ; virtual desktop
 CapsLock & 1::#t            ; circle between toolbar;
-CapsLock & 2::^#Left        ; go to next desktop;
-CapsLock & 3::^#Right       ; go to previous desktop;
+CapsLock & r::^#Left        ; go to next desktop;
+CapsLock & t::^#Right       ; go to previous desktop;
+CapsLock & n::#Up           
+CapsLock & m::#Down
+CapsLock & ,::#Left
+CapsLock & .::#Right
 
 ; -------------------------------------
 ; Keyboard - Arrows
@@ -45,40 +49,47 @@ CapsLock & l::Right
 ; Keyboard - Cursor manipulation all editors
 
 ; removing chars 
-CapsLock & Space::Backspace ; delete char before cursor;
-CapsLock & f::Del           ; delete char after cursor;
+CapsLock & Space::Backspace     ; delete char before cursor;
+CapsLock & f::Del               ; delete char after cursor;
 ; replace cursor
-CapsLock & h::Home          ; cursor at begging of line;
-CapsLock & SC027::End       ; cursor at end of line SC027-SEMICOLON;
-CapsLock & u::^Left         ; cursor at end word;
-CapsLock & o::^Right        ; cursor ar beginnig of word;
+CapsLock & h::Home              ; cursor at begging of line;
+CapsLock & SC027::End           ; cursor at end of line SC027-SEMICOLON;
+CapsLock & u::^Left             ; cursor at end word;
+CapsLock & o::^Right            ; cursor ar beginnig of word;
 ; marking text
-CapsLock & a::^+Left        ; move cursor at end of word and select it;
-CapsLock & d::^+Right       ; move cursor at begginig of word and select it;
-CapsLock & w::+Up          ; move cursor over and select line;
-CapsLock & s::+Down        ; move cursor down and select line;
-CapsLock & q::+Home         ; select all words to the end of line; 
-CapsLock & e::+End          ; select all words to the bigging of line;
+CapsLock & a::^+Left            ; move cursor at end of word and select it;
+CapsLock & d::^+Right           ; move cursor at begginig of word and select it;
+CapsLock & w::+Up               ; move cursor over and select line;
+CapsLock & s::+Down             ; move cursor down and select line;
+CapsLock & q::+Home             ; select all words to the end of line; 
+CapsLock & e::+End              ; select all words to the bigging of line;
 
 ; -------------------------------------
 ; VScode
 
 ; removing chars
-CapsLock & g::^+k           ; delete line;
-; coping text
+CapsLock & g::^+k               ; delete line;
+CapsLock & y::^Up             ; move page down;
+CapsLock & b::^Down             ; move page up;
 
 ; adding chars
-CapsLock & r::=             ; +shift makes +
-CapsLock & t::_    
 CapsLock & z::( 
 CapsLock & x::{
 CapsLock & c::[
+; add comments
+CapsLock & v::^/                ; add comment
+;CapsLock & b::!+a               ; add comment
 
 ; three key combination
 #if GetKeyState("CapsLock", "P")
-Alt &   r::Send `=>`
-Shift & t::Send {-}
+Alt &   l::Send `=>`
+Alt &   j::Send {=}
+Alt &   v::!+a
 return
 
 ; #Win ^Ctrl !Alt +Shift
 ; #############################################################################
+;CapsLock & b::SetCapsLockState, Off
+
+; ideas:
+;CapsLock & LAlt::Del           ; delete char after cursor;
