@@ -16,7 +16,7 @@ ToolTip, AHK Script by covicDev,0,0
 Sleep, 500
 ToolTip
 
-Speed := 20
+Speed := 15
 Script := false
 CapsLock & Enter::
 Script := !Script
@@ -67,8 +67,8 @@ CapsLock & a::^+Left            ; move cursor at end of word and select it;
 CapsLock & d::^+Right           ; move cursor at begginig of word and select it;
 CapsLock & w::+Up               ; move cursor over and select line;
 CapsLock & s::+Down             ; move cursor down and select line;
-CapsLock & q::+Home             ; select all words to the end of line; 
-CapsLock & e::+End              ; select all words to the bigging of line;
+CapsLock & [::+Home             ; select all words to the end of line; 
+CapsLock & ]::+End              ; select all words to the bigging of line;
 
 ; -------------------------------------
 ; VScode
@@ -125,10 +125,10 @@ return
 CapsLock & b::^Down             ; move page up;
 return
 #If !Script
-CapsLock & a::^+Left            ; move cursor at end of word and select it;
+CapsLock & a::+Left            ; move cursor at end of word and select it;
 return
 #If !Script
-CapsLock & d::^+Right           ; move cursor at begginig of word and select it;
+CapsLock & d::+Right           ; move cursor at begginig of word and select it;
 return
 #If !Script
 CapsLock & w::+Up               ; move cursor over and select line;
@@ -136,6 +136,13 @@ return
 #If !Script
 CapsLock & s::+Down             ; move cursor down and select line;
 return
+#If !Script
+CapsLock & q::^+Left            ; select all words to the end of line;
+return
+#If !Script
+CapsLock & e::^+Right              ; select all words to the bigging of line;
+return
+
 
 ; #############################################################################
 ; flag ON
