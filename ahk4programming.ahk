@@ -1,6 +1,6 @@
 ; uses AutoHotKey (https://www.autohotkey.com/docs/license.htm)
 ; script by covicDev (http://github.com/covicDev)
-; version 1.0.0
+; version 1.0.2
 
 ; #############################################################################
 ; Initial presets.
@@ -10,6 +10,7 @@
 #SingleInstance Force
 #InstallKeybdHook
 #InstallMouseHook
+#UseHook, On
 SendMode Input
 
 ToolTip, AHK Script by covicDev,0,0
@@ -21,9 +22,9 @@ Script := false
 CapsLock & Enter::
 Script := !Script
 if !Script
-	ToolTip,( K )AHK_covicDev: KEYBOARD,0,0
+    ToolTip,( K )AHK_covicDev: KEYBOARD,0,0
 else
-	ToolTip,( M )AHK_covicDev: MOUSE,0,0
+    ToolTip,( M )AHK_covicDev: MOUSE,0,0
 Sleep, 500
 ToolTip
 return
@@ -35,78 +36,53 @@ return
 SetCapsLockState, Off
 SetCapsLockState, Alwaysoff
 ~Capslock::SetCapsLockState, off
-*CapsLock::Return           		; block (Ctrl|Alt|Shift) + CapsLock;
-CapsLock & *::Return        
+*CapsLock::Return                       ; block (Ctrl|Alt|Shift) + CapsLock;
+CapsLock & *::Return
 ; #############################################################################
 
 ; #############################################################################
 ; Caps Lock shortcuts.
-
-; CapsLock & Sc029:: ; <todo> implement
-
 ; -------------------------------------
 ; Windows manipulation
-CapsLock & Tab::AltTabMenu  ; open static alt+tab preview <todo>generate errors;
+CapsLock & Tab::AltTabMenu              ; open static alt+tab preview <todo>generate errors;
 ; virtual desktop
-CapsLock & 1::#t            ; circle between toolbar;
-CapsLock & q::^#Left        ; go to next desktop;
-CapsLock & z::^#Right       ; go to previous desktop;
+CapsLock & 1::#t                        ; circle between toolbar;
+CapsLock & q::^#Left                    ; go to next desktop;
+CapsLock & z::^#Right                   ; go to previous desktop;
 
 ; -------------------------------------
 ; Keyboard - Cursor manipulation all editors
 
 ; removing chars 
-CapsLock & Space::Backspace     ; delete char before cursor;
-; CapsLock & f::Del               ; delete char after cursor;
-; replace cursor
-
-
-; marking text
-; CapsLock & a::^+Left            ; move cursor at end of word and select it;
-; CapsLock & d::^+Right           ; move cursor at begginig of word and select it;
-; CapsLock & w::+Up               ; move cursor over and select line;
-; CapsLock & s::+Down             ; move cursor down and select line;
-
+CapsLock & Space::Backspace             ; delete char before cursor;
+CapsLock & LAlt::Del                    ; delete char after cursor - this;
 
 ; -------------------------------------
 ; VScode
-CapsLock & x::^+k                   ; delete line;
-CapsLock & c::Del                   ; delete char;
-CapsLock & v::^/                    ; add comment;
+CapsLock & x::^+k                       ; delete line;
+CapsLock & c::Del                       ; delete char;
+CapsLock & v::^/                        ; add comment;
+
+; adding chars
 CapsLock & t::=
-CapsLock & 2::( 
+CapsLock & 2::(
 CapsLock & 3::{
 CapsLock & 4::[
 
-
 ; t p [ ]
-
-
-; removing chars
-; CapsLock & g::^+k               
-
-; adding chars
-; CapsLock & z::( 
-; CapsLock & x::{
-; CapsLock & c::[
-
-; add comments
-                ; add comment
-;CapsLock & b::!+a               ; add comment
 
 ; three key combination
 #if GetKeyState("CapsLock", "P")
 Alt &   t::Send `=>`
-Alt &   v::!+a
+Alt &   v::!+a                          ; add advance comment;
 return
 
 CapsLock & Backspace::SetCapsLockState, Off
 CapsLock & Alt::Return   
 
 ; ideas:
-;CapsLock & LAlt::Del           ; delete char after cursor;
 ;Ctrl backspace = remove whole word;
-
+;CapsLock & Sc029:: ; <todo> implement
 
 ; do not add new features after the flag
 ; #############################################################################
@@ -205,10 +181,10 @@ return
 CapsLock & n::AppsKey
 return
 #If Script 
-CapsLock & y::WheelUp            	    ; move page down;
+CapsLock & y::WheelUp            	            ; move page down;
 return
 #If Script 
-CapsLock & b::WheelDown                 ; move page up;
+CapsLock & b::WheelDown                         ; move page up;
 return
 
 ; windows window setup
