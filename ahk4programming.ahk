@@ -5,20 +5,27 @@
 ; #############################################################################
 ; Initial presets.
 #NoEnv
-#Persistent
+#Persistent                             ; Kept script working on;
+SetCapsLockState, Alwaysoff             ; Kept CapLock always off;
 #Warn
-#SingleInstance Force
+#SingleInstance Force                   ; Only one instance is allowed;
 #InstallKeybdHook
 #InstallMouseHook
 #UseHook, On
 SendMode Input
 
+
+; #############################################################################
+; Keyboard layout switcher;
+; Works as CapsLock & Enter tapped.
 ToolTip, AHK Script by covicDev,0,0
 Sleep, 500
 ToolTip
-
+; Speed of keyboard mouse;
 Speed := 15
+
 Script := false
+
 CapsLock & Enter::
 Script := !Script
 if !Script
@@ -28,16 +35,13 @@ else
 Sleep, 500
 ToolTip
 return
+; #############################################################################
 
 #If
 ; #############################################################################
 ; Completely block of Caps Lock.
-; <todo> sometimes CapsLock can turn on.
-SetCapsLockState, Off
-SetCapsLockState, Alwaysoff
-~Capslock::SetCapsLockState, off
 *CapsLock::Return                       ; block (Ctrl|Alt|Shift) + CapsLock;
-CapsLock & *::Return
+CapsLock & *::Return                    ; block CapsLock + (Ctrl|Alt|Shift);
 ; #############################################################################
 
 ; #############################################################################
@@ -77,7 +81,6 @@ Alt &   t::Send `=>`
 Alt &   v::!+a                          ; add advance comment;
 return
 
-CapsLock & Backspace::SetCapsLockState, Off
 CapsLock & Alt::Return   
 
 ; ideas:
@@ -101,36 +104,36 @@ return
 CapsLock & l::Right
 return
 #If !Script 
-CapsLock & u::^Left             	; cursor at end word;
+CapsLock & u::^Left                 ; cursor at end word;
 return
 #If !Script 
-CapsLock & o::^Right            	; cursor ar beginnig of word;
+CapsLock & o::^Right                ; cursor ar beginnig of word;
 return
 #If !Script
-CapsLock & h::Home              	; cursor at begging of line;
+CapsLock & h::Home                  ; cursor at begging of line;
 return
 #If !Script
-CapsLock & SC027::End           	; cursor at end of line SC027-SEMICOLON;
+CapsLock & SC027::End               ; cursor at end of line SC027-SEMICOLON;
 return
 
-; right part of keyboard
-#If !Script
-CapsLock & s::+Left            		; move cursor at end of char and select it;
+k; right part of keyboard
+#kIf !Script
+CapsLock & s::+Left                 ; move cursor at end of char and select it;
 return
 #If !Script
-CapsLock & f::+Right           		; move cursor at beginnig of char and select it;
+CapsLock & f::+Right                ; move cursor at beginnig of char and select it;
 return
 #If !Script
-CapsLock & e::+Up               	; move cursor over and select line;
+CapsLock & e::+Up                   ; move cursor over and select line;
 return
 #If !Script
-CapsLock & d::+Down             	; move cursor down and select line;
+CapsLock & d::+Down                 ; move cursor down and select line;
 return
 #If !Script
-CapsLock & w::^+Left            	; move cursor at end of word and select it;
+CapsLock & w::^+Left                ; move cursor at end of word and select it;
 return
 #If !Script
-CapsLock & r::^+Right              	; move cursor at beginng of word and select it;
+CapsLock & r::^+Right               ; move cursor at beginng of word and select it;
 return
 #If !Script
 CapsLock & a::+Home                 ; select all words to the end of line; 
@@ -140,10 +143,10 @@ CapsLock & g::+End                  ; select all words to the bigging of line;
 return
 
 #If !Script 
-CapsLock & y::^Up             		; move page down;
+CapsLock & y::^Up                   ; move page down;
 return
 #If !Script 
-CapsLock & b::^Down             	; move page up;
+CapsLock & b::^Down                 ; move page up;
 return
 
 ; #############################################################################
@@ -151,28 +154,28 @@ return
 
 ; keyboard mouse controle
 #If Script
-CapsLock & i::MouseMove, 0, -Speed, 0, R   		; Move cursor upward
+CapsLock & i::MouseMove, 0, -Speed, 0, R        ; Move cursor upward
 return
 #If Script
-CapsLock & ,::MouseMove, 0,Speed , 0, R  		; Move cursor downward
+CapsLock & ,::MouseMove, 0,Speed , 0, R         ; Move cursor downward
 return
 #If Script
-CapsLock & j::MouseMove, -Speed, 0, 0, R 		; Move cursor to the left
+CapsLock & j::MouseMove, -Speed, 0, 0, R        ; Move cursor to the left
 return
 #If Script
-CapsLock & l::MouseMove, Speed , 0, 0, R 		; Move cursor to the right
+CapsLock & l::MouseMove, Speed , 0, 0, R        ; Move cursor to the right
 return
 #If Script
-CapsLock & .::MouseMove, Speed , Speed, 0, R 	; Move cursor to the right
+CapsLock & .::MouseMove, Speed , Speed, 0, R    ; Move cursor to the right
 return
 #If Script
-CapsLock & o::MouseMove, Speed , -Speed, 0, R 	; Move cursor to the right
+CapsLock & o::MouseMove, Speed , -Speed, 0, R   ; Move cursor to the right
 return
 #If Script
-CapsLock & u::MouseMove, -Speed , -Speed, 0, R 	; Move cursor to the right
+CapsLock & u::MouseMove, -Speed , -Speed, 0, R  ; Move cursor to the right
 return
 #If Script
-CapsLock & m::MouseMove, -Speed , Speed, 0, R 	; Move cursor to the right
+CapsLock & m::MouseMove, -Speed , Speed, 0, R   ; Move cursor to the right
 return
 #If Script
 CapsLock & k::Click
@@ -181,7 +184,7 @@ return
 CapsLock & n::AppsKey
 return
 #If Script 
-CapsLock & y::WheelUp            	            ; move page down;
+CapsLock & y::WheelUp                           ; move page down;
 return
 #If Script 
 CapsLock & b::WheelDown                         ; move page up;
