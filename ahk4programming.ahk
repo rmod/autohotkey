@@ -1,6 +1,6 @@
 ; uses AutoHotKey (https://www.autohotkey.com/docs/license.htm)
 ; script by covicDev (http://github.com/covicDev)
-; version 1.0.2
+; version 1.0.3
 
 ; #############################################################################
 ; Initial presets.
@@ -13,7 +13,6 @@ SetCapsLockState, Alwaysoff             ; Kept CapLock always off;
 #InstallMouseHook
 #UseHook, On
 SendMode Input
-
 
 ; #############################################################################
 ; Keyboard layout switcher;
@@ -37,11 +36,20 @@ ToolTip
 return
 ; #############################################################################
 
-#If
 ; #############################################################################
 ; Completely block of Caps Lock.
 *CapsLock::Return                       ; block (Ctrl|Alt|Shift) + CapsLock;
 CapsLock & *::Return                    ; block CapsLock + (Ctrl|Alt|Shift);
+; #############################################################################
+
+; #############################################################################
+; Make Win Key + Capslock work like Capslock (in case it's ever needed)
+#Capslock::
+If GetKeyState("CapsLock", "T") = 1
+    SetCapsLockState, AlwaysOff
+Else 
+    SetCapsLockState, AlwaysOn
+Return
 ; #############################################################################
 
 ; #############################################################################
@@ -55,80 +63,87 @@ CapsLock & q::^#Left                    ; go to next desktop;
 CapsLock & z::^#Right                   ; go to previous desktop;
 
 ; -------------------------------------
-; Keyboard - Cursor manipulation all editors
-
+; Keyboard - Cursor manipulation all editorss
 ; removing chars 
-CapsLock & Space::Backspace             ; delete char before cursor;
-CapsLock & LAlt::Del                    ; delete char after cursor - this;
+;CapsLock & Space::Backspace             ; delete char before cursor;
+CapsLock & Space::SendInput {Blind}{Backspace Down} 
+; CapsLock & LAlt::Del                  ; delete char after cursor - this;
+CapsLock & LAlt::SendInput {Blind}{Del Down}
+CapsLock & Alt::Return
 
 ; -------------------------------------
 ; VScode
-CapsLock & x::^+k                       ; delete line;
-CapsLock & c::Del                       ; delete char;
-CapsLock & v::^/                        ; add comment;
+CapsLock & v::^+k                       ; delete line;
+CapsLock & x::!+a                       ; add advance comment;
+CapsLock & c::^/                        ; add comment;
 
 ; adding chars
 CapsLock & t::=
-CapsLock & 2::(
-CapsLock & 3::{
-CapsLock & 4::[
+CapsLock & 3::(
+CapsLock & 4::{
+CapsLock & 5::[
 
-; t p [ ]
+; t p [ ] m n
 
 ; three key combination
 #if GetKeyState("CapsLock", "P")
-Alt &   t::Send `=>`
-Alt &   v::!+a                          ; add advance comment;
+Alt &   t::Send `=>`                   
 return
-
-CapsLock & Alt::Return   
 
 ; ideas:
 ;Ctrl backspace = remove whole word;
-;CapsLock & Sc029:: ; <todo> implement
 
 ; do not add new features after the flag
 ; #############################################################################
 ; flag OFF
 ; left part of keyboard
+
 #If !Script 
-CapsLock & i::Up
-return
-#If !Script 
-CapsLock & k::Down
-return
-#If !Script 
-CapsLock & j::Left
-return
-#If !Script 
-CapsLock & l::Right
-return
-#If !Script 
-CapsLock & u::^Left                 ; cursor at end word;
-return
-#If !Script 
-CapsLock & o::^Right                ; cursor ar beginnig of word;
-return
-#If !Script
-CapsLock & h::Home                  ; cursor at begging of line;
-return
-#If !Script
-CapsLock & SC027::End               ; cursor at end of line SC027-SEMICOLON;
+Capslock & i::Send {Blind}{Up DownTemp}
+Capslock & i up::Send {Blind}{Up Up}
+Capslock & k::Send {Blind}{Down DownTemp}
+Capslock & k up::Send {Blind}{Down Up}
+Capslock & j::Send {Blind}{Left DownTemp}
+Capslock & j up::Send {Blind}{Left Up}
+Capslock & l::Send {Blind}{Right DownTemp}
+Capslock & l up::Send {Blind}{Right Up}
+
+;CapsLock & u::^Left                                        ; cursor at end word;
+Capslock & u::SendInput {Blind}{Ctrl Down}{Left Down}
+Capslock & u up::SendInput {Blind}{Ctrl Up}{Left Up}
+;CapsLock & o::^Right                                       ; cursor at beginnig of word;
+Capslock & o::SendInput {Blind}{Ctrl Down}{Right Down}
+Capslock & o up::SendInput {Blind}{Ctrl Up}{Right Up}
+;CapsLock & h::Home                                         ; cursor at begging of line;
+Capslock & h::SendInput {Blind}{Home Down}
+Capslock & h up::SendInput {Blind}{Home Up}
+;CapsLock & SC027::End                                      ; cursor at end of line SC027-SEMICOLON;
+Capslock & SC027::SendInput {Blind}{End Down}
+Capslock & SC027 up::SendInput {Blind}{End Up}
+
+; -------------------------------------
+; right part of keyboard
+;CapsLock & s::+Left                                        ; move cursor at end of char and select it;
+Capslock & s::SendInput {Blind}{Shift Down}{Left Down}
+Capslock & s up::SendInput {Blind}{Shift Up}{Left Up}
+;CapsLock & f::+Right                                       ; move cursor at beginnig of char and select it;
+Capslock & f::SendInput {Blind}{Shift Down}{Right Down}
+Capslock & f up::SendInput {Blind}{Shift Up}{Right Up}
+;CapsLock & e::+Up                                          ; move cursor over and select line;
+Capslock & e::SendInput {Blind}{Shift Down}{Up Down}
+Capslock & e up::SendInput {Blind}{Shift Up}{Up Up}
+;CapsLock & d::+Down                                        ; move cursor down and select line;
+Capslock & d::SendInput {Blind}{Shift Down}{Down Down}
+Capslock & d up::SendInput {Blind}{Shift Up}{Down Up}
+
+;CapsLock & y::^Up                                          ; move page down;
+Capslock & y::SendInput {Blind}{PgUp Down}
+Capslock & y up::SendInput {Blind}{PgUp Up}
+;CapsLock & b::^Down                                        ; move page up;
+Capslock & b::SendInput {Blind}{PgDn Down}
+Capslock & b up::SendInput {Blind}{PgDn Up}
 return
 
-k; right part of keyboard
-#kIf !Script
-CapsLock & s::+Left                 ; move cursor at end of char and select it;
-return
-#If !Script
-CapsLock & f::+Right                ; move cursor at beginnig of char and select it;
-return
-#If !Script
-CapsLock & e::+Up                   ; move cursor over and select line;
-return
-#If !Script
-CapsLock & d::+Down                 ; move cursor down and select line;
-return
 #If !Script
 CapsLock & w::^+Left                ; move cursor at end of word and select it;
 return
@@ -140,13 +155,6 @@ CapsLock & a::+Home                 ; select all words to the end of line;
 return
 #If !Script
 CapsLock & g::+End                  ; select all words to the bigging of line;
-return
-
-#If !Script 
-CapsLock & y::^Up                   ; move page down;
-return
-#If !Script 
-CapsLock & b::^Down                 ; move page up;
 return
 
 ; #############################################################################
