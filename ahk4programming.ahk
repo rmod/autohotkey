@@ -2,6 +2,14 @@
 #Persistent
 SetCapsLockState, AlwaysOff
 
+; Makes WinKey + Capslock work like Capslock
+#Capslock::
+If GetKeyState("CapsLock", "T") = 1
+    SetCapsLockState, AlwaysOff
+Else 
+    SetCapsLockState, AlwaysOn
+Return
+
 ; left part
 Capslock & j::Send {Blind}{Left DownTemp}
 Capslock & j up::Send {Blind}{Left Up}
@@ -68,8 +76,8 @@ CapsLock & z::SendInput {Blind}{Ctrl Down}{LWin Down}{Right Down}
 Capslock & z up::SendInput {Blind}{Ctrl Up}{LWin Up}{Right Up}
 
 ; else
-;code
-Capslock & c::SendInput {Ctrl down}{/}{Ctrl up}			; add comment;
+; Visual Code
+Capslock & c::SendInput {Ctrl down}{/}{Ctrl up}			    ; add comment;
 
 Capslock & v::SendInput {Ctrl Down}{Shift Down}{k Down}		; delete line;
 Capslock & v up::SendInput {Ctrl Up}{Shift Up}{k Up}
@@ -79,37 +87,7 @@ CapsLock & 3::SendInput {(}
 CapsLock & 4::SendInput {{}
 CapsLock & 5::SendInput {[}
 
-; code                     
-;Capslock & x::SendInput {Shift Down}{Alt Down}{a}{Alt Up}{Shift Up}	; add advance comment;	
 
-;Capslock & a::SendInput {Ctrl Down}{a Down}
-;Capslock & a up::SendInput {Ctrl Up}{a Up}
-
-;Capslock & s::SendInput {Ctrl Down}{x Down}
-;Capslock & s up::SendInput {Ctrl Up}{x Up}
-
-;Capslock & d::SendInput {Ctrl Down}{c Down}
-;Capslock & d up::SendInput {Ctrl Up}{c Up}
-
-;Capslock & f::SendInput {Ctrl Down}{v Down}
-;Capslock & f up::SendInput {Ctrl Up}{v Up}
-
-;Capslock & w::SendInput {Ctrl down}{F4}{Ctrl up}
-;Capslock & e::SendInput {Alt down}{F4}{Alt up}
-;Capslock & r::SendInput {Blind}{Esc Down}
-
-; Make Capslock & Enter equivalent to Control+Enter
-;Capslock & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
-
-;Capslock & q::SendInput {Ctrl Down}{Tab Down}
-;Capslock & q up::SendInput {Ctrl Up}{Tab Up}
-;Capslock & Tab::SendInput {Ctrl Down}{Shift Down}{Tab Down}
-;Capslock & Tab up::SendInput {Ctrl Up}{Shift Up}{Tab Up}
-
-;Capslock & ,::SendInput {Ctrl Down}{z Down}
-;Capslock & , up::SendInput {Ctrl Up}{z Up}
-;Capslock & .::SendInput {Ctrl Down}{y Down}
-;Capslock & . up::SendInput {Ctrl Up}{y Up}
 
 
 
