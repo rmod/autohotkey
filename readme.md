@@ -1,4 +1,5 @@
 <h2> covicDev: autohotkey script.</h2>
+<p>read more: https://modelivesky.com</p>
 <p>uses AutoHotKey(https://www.autohotkey.com/docs/license.htm)</p>
 <hr>
 Script base on CapLock key.
